@@ -52,6 +52,44 @@ struct node* create (struct node* head)
   return head;
 
 }
+void addpoly(struct node* head1,struct node* head2)
+{
+    struct node* ptr1 = head1;
+    struct node* ptr2 = head2;
+    struct node* head3 = NULL;
+    while(ptr1!=NULL && ptr2!=NULL)
+    {
+        if (ptr1->expo == ptr2->expo)
+        {
+            head3 = insert(head3 , ptr1->coeff + ptr2->coeff , ptr1->expo);
+            ptr1 = ptr1->link;
+            ptr2 = ptr2->link;
+        }
+    else if (ptr1->expo > ptr2->expo)
+    {
+        head3 = insert(head3, ptr1->coeff , ptr1->expo);
+        ptr1 = ptr1->link;
+    }
+    else if (ptr2->expo < ptr2->expo)
+    {
+        head3 = insert(head3 , ptr2->coeff ,ptr2->expo);
+        ptr2 = ptr2->link;
+    }
+    }
+    while(ptr1!=NULL)
+    {
+        head3 = insert(head3,ptr1->coeff,ptr1->expo);
+        ptr1 = ptr1->link;
+    }
+    while(ptr2!=NULL)
+    {
+        head3 = insert(head3,ptr2->coeff,ptr2->expo);
+        ptr2 = ptr2->link;
+    }
+    printf("The added polynomial is :");
+    print(head3);
+
+}
 void print(struct node* head)
 {
     if( head == NULL)
@@ -73,9 +111,12 @@ void print(struct node* head)
 
 int main()
 {
-   struct node* head = NULL;
-   printf("enter the polynomial\n  ");
-   head = create(head);
-   print(head);
+   struct node* head1= NULL;
+   struct node* head2= NULL;
+   printf("enter the polynomial 1\n  ");
+   head1 = create(head1);
+   printf("enter the polynomial 2\n  ");
+   head2= create(head2);
+   addpoly(head1,head2);
    return 0;
 }
